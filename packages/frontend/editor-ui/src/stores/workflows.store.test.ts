@@ -901,7 +901,7 @@ function generateMockExecutionEvents() {
 	};
 	const successEvent: PushPayload<'nodeExecuteAfter'> = {
 		executionId: '59',
-		nodeName: 'When clicking ‘Test workflow’',
+		nodeName: 'When clicking ‘Execute workflow’',
 		data: {
 			hints: [],
 			startTime: 1727867966633,
@@ -934,7 +934,7 @@ function generateMockExecutionEvents() {
 			executionTime: 2,
 			source: [
 				{
-					previousNode: 'When clicking ‘Test workflow’',
+					previousNode: 'When clicking ‘Execute workflow’',
 				},
 			],
 			executionStatus: 'error',

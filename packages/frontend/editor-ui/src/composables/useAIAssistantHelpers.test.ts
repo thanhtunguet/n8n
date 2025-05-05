@@ -456,7 +456,7 @@ const testWorkflow: IWorkflowDb = {
 
 const testExecutionData: IRunExecutionData['resultData'] = {
 	runData: {
-		'When clicking ‘Test workflow’': [
+		'When clicking ‘Execute workflow’': [
 			{
 				hints: [],
 				startTime: 1732882780588,
@@ -486,7 +486,7 @@ const testExecutionData: IRunExecutionData['resultData'] = {
 				executionTime: 0,
 				source: [
 					{
-						previousNode: 'When clicking ‘Test workflow’',
+						previousNode: 'When clicking ‘Execute workflow’',
 					},
 				],
 				executionStatus: 'success',

@@ -32,7 +32,7 @@ describe('Microsoft Entra Node', () => {
 								typeVersion: 1,
 								position: [0, 0],
 								id: '1307e408-a8a5-464e-b858-494953e2f43b',
-								name: "When clicking 'Test workflow'",
+								name: 'When clicking ‘Execute workflow’',
 							},
 							{
 								parameters: {
@@ -61,7 +61,7 @@ describe('Microsoft Entra Node', () => {
 							},
 						],
 						connections: {
-							"When clicking 'Test workflow'": {
+							'When clicking ‘Execute workflow’': {
 								main: [
 									[
 										{
