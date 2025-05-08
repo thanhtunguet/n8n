@@ -1,4 +1,5 @@
 import type { CreateProjectDto, ProjectType, UpdateProjectDto } from '@n8n/api-types';
+import { LicenseState } from '@n8n/backend-common';
 import { GlobalConfig } from '@n8n/config';
 import { UNLIMITED_LICENSE_QUOTA } from '@n8n/constants';
 import type { User } from '@n8n/db';
@@ -16,7 +17,6 @@ import { SharedWorkflowRepository } from '@/databases/repositories/shared-workfl
 import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { ForbiddenError } from '@/errors/response-errors/forbidden.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
-import { License } from '@/license';
 
 import { CacheService } from './cache/cache.service';
 
@@ -42,7 +42,7 @@ export class ProjectService {
 		private readonly projectRelationRepository: ProjectRelationRepository,
 		private readonly sharedCredentialsRepository: SharedCredentialsRepository,
 		private readonly cacheService: CacheService,
-		private readonly license: License,
+		private readonly licenseState: LicenseState,
 		private readonly globalConfig: GlobalConfig,
 	) {}
 
@@ -181,8 +181,7 @@ export class ProjectService {
 		data: CreateProjectDto,
 		trx: EntityManager,
 	) {
-		// TODO: use LicenseState instead
-		const limit = this.license.getTeamProjectLimit();
+		const limit = this.licenseState.getMaxTeamProjects();
 
 		const teamProjectCount = await trx.count(Project, { where: { type: 'team' } });
 		if (limit !== UNLIMITED_LICENSE_QUOTA) {
@@ -275,11 +274,11 @@ export class ProjectService {
 	private isProjectRoleLicensed(role: ProjectRole) {
 		switch (role) {
 			case 'project:admin':
-				return this.license.isProjectRoleAdminLicensed();
+				return this.licenseState.isProjectRoleAdminLicensed();
 			case 'project:editor':
-				return this.license.isProjectRoleEditorLicensed();
+				return this.licenseState.isProjectRoleEditorLicensed();
 			case 'project:viewer':
-				return this.license.isProjectRoleViewerLicensed();
+				return this.licenseState.isProjectRoleViewerLicensed();
 			default:
 				return true;
 		}
